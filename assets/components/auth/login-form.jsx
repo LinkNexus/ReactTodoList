@@ -33,50 +33,44 @@ export default function LoginForm({backButtonHref}) {
             backButtonLabel="Don't have an account? Register here"
         >
             <Form {...form}>
+                <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-6">
+                    <div className="space-y-4">
+                        <FormField
+                            control={form.control}
+                            name="_email"
+                            render={({field}) => (
+                                <FormItem>
+                                    <FormLabel>Email</FormLabel>
+                                    <FormControl>
+                                        <Input {...field} type="email" placeholder="example@domain.com"/>
+                                    </FormControl>
+                                    <FormMessage/>
+                                </FormItem>
+                            )}
+                        />
 
+                        <FormField
+                            control={form.control}
+                            name="_password"
+                            render={({field}) => (
+                                <FormItem>
+                                    <FormLabel>Password</FormLabel>
+                                    <FormControl>
+                                        <Input {...field} type="password" placeholder="******"/>
+                                    </FormControl>
+                                </FormItem>
+                            )}
+                        />
+                    </div>
+
+                    <Button type="submit" className="w-full">
+                        {loading ?
+                            <><Loader2 className="mr-2 h-4 w-4 animate-spin"/> Please Wait</> :
+                            "Sign In"
+                        }
+                    </Button>
+                </form>
             </Form>
         </CardWrapper>
     )
-}
-
-function Layout({}) {
-    return (
-        <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-6">
-            <div className="space-y-4">
-                <FormField
-                    control={form.control}
-                    name="_email"
-                    render={({field}) => (
-                        <FormItem>
-                            <FormLabel>Email</FormLabel>
-                            <FormControl>
-                                <Input {...field} type="email" placeholder="example@domain.com"/>
-                            </FormControl>
-                            <FormMessage/>
-                        </FormItem>
-                    )}
-                />
-
-                <FormField
-                    control={form.control}
-                    name="_password"
-                    render={({field}) => (
-                        <FormItem>
-                            <FormLabel>Password</FormLabel>
-                            <FormControl>
-                                <Input {...field} type="password" placeholder="******"/>
-                            </FormControl>
-                        </FormItem>
-                    )}
-                />
-            </div>
-
-            <Button type="submit" className="w-full">
-                {loading ?
-                    <><Loader2 className="mr-2 h-4 w-4 animate-spin"/> Please Wait</> :
-                    "Sign In"
-                }
-            </Button>
-        </form>
-    );
 }
