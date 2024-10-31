@@ -1,6 +1,6 @@
-import {Card, CardContent, CardFooter, CardHeader} from "../ui/card.tsx";
-import AuthHeader from "./auth-header.jsx";
-import BackButton from "./back-button.jsx";
+import AuthHeader from "./AuthHeader.jsx";
+import BackButton from "./BackButton.jsx";
+import {Card, CardContent, CardFooter, CardHeader} from "../../../components/ui/card.tsx";
 
 /**
  * @param {string} label
@@ -12,7 +12,7 @@ import BackButton from "./back-button.jsx";
  */
 export default function CardWrapper({label, title, backButtonHref, backButtonLabel, children}) {
     return (
-        <Card className="xl:w-1/3 md:w-1/2 shadow-md">
+        <Card className="xl:w-5/12 md:w-2/3 sm-3/4 shadow-md">
             <CardHeader>
                 <AuthHeader label={label} title={title}>
                 </AuthHeader>
@@ -22,5 +22,5 @@ export default function CardWrapper({label, title, backButtonHref, backButtonLab
                 <BackButton label={backButtonLabel} href={backButtonHref} />
             </CardFooter>
         </Card>
-    )
+    );
 }
