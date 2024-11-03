@@ -1,7 +1,7 @@
 import {forwardRef, useId} from "react";
 import {Checkbox} from "../../../components/ui/checkbox.tsx";
 
-export default forwardRef(({label, ...props}, ref) => {
+export default forwardRef(({label, children, ...props}, ref) => {
     const id = useId();
 
     return (
@@ -13,6 +13,9 @@ export default forwardRef(({label, ...props}, ref) => {
             >
                 {label}
             </label>
+
+            {children}
+
         </div>
     )
 });

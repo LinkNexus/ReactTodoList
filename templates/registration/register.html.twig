@@ -3,12 +3,15 @@
 {% block title %}Register{% endblock %}
 
 {% block body %}
+
     {% for flash_error in app.flashes('verify_email_error') %}
         <div class="alert alert-danger" role="alert">{{ flash_error }}</div>
     {% endfor %}
 
-    <section class="w-full">
-        <div class="h-screen flex items-center justify-center" {{ react_component("Auth/Register", {backButtonHref: path("app_login")}) }}>
+    <section class="w-full h-full py-5">
+        <div class="h-full flex items-center justify-center" {{ react_component("Auth/Register", {
+            backButtonHref: path("app_login"),
+        }) }}>
             <twig:Spinner />
         </div>
     </section>

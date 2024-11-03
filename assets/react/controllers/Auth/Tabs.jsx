@@ -15,8 +15,13 @@ import {cn} from "../../../lib/utils.ts";
 import {format} from "date-fns";
 import {CalendarIcon} from "lucide-react";
 import {Calendar} from "../../../components/ui/calendar.tsx";
+import ReactPasswordChecklist from "react-password-checklist";
+import {RadioGroup, RadioGroupItem} from "../../../components/ui/radio-group.tsx";
 
 export default function ({form}) {
+    const password = form.getValues("password");
+    const confirmPassword = form.getValues("confirmPassword");
+
     return (
         <Tabs defaultValue="personal" >
             <TabsList className="grid w-full grid-cols-2">
@@ -64,7 +69,7 @@ export default function ({form}) {
                             control={form.control}
                             name="dateOfBirth"
                             render={({field}) => (
-                                <FormItem className="flex flex-col">
+                                <FormItem>
                                     <FormLabel>Date of Birth</FormLabel>
                                     <Popover>
                                         <PopoverTrigger asChild>
@@ -72,7 +77,7 @@ export default function ({form}) {
                                                 <Button
                                                     variant="outline"
                                                     className={cn(
-                                                        "pl-3 text-left font-normal",
+                                                        "pl-3 text-left font-normal w-full",
                                                         !field.value && "text-muted-foreground"
                                                     )}
                                                 >
@@ -99,6 +104,45 @@ export default function ({form}) {
                                 </FormItem>
                             )}
                         />
+
+                        <FormField
+                            control={form.control}
+                            name="gender"
+                            render={({field}) => (
+                                <FormItem className="w-full">
+                                    <FormLabel>Choose your gender</FormLabel>
+                                    <FormControl className="w-full flex justify-between">
+                                        <RadioGroup
+                                            onValueChange={field.onChange}
+                                            defaultValue={field.value}
+                                            className="flex"
+                                        >
+                                            <FormItem className="flex items-center space-x-3">
+                                                <FormControl>
+                                                    <RadioGroupItem value="male" />
+                                                </FormControl>
+                                                <FormLabel className="font-normal">Male</FormLabel>
+                                            </FormItem>
+
+                                            <FormItem className="flex items-center space-x-3">
+                                                <FormControl>
+                                                    <RadioGroupItem value="female" />
+                                                </FormControl>
+                                                <FormLabel className="font-normal">Female</FormLabel>
+                                            </FormItem>
+
+                                            <FormItem className="flex items-center space-x-3">
+                                                <FormControl>
+                                                    <RadioGroupItem value="other" />
+                                                </FormControl>
+                                                <FormLabel className="font-normal">Other</FormLabel>
+                                            </FormItem>
+                                        </RadioGroup>
+                                    </FormControl>
+                                    <FormMessage />
+                                </FormItem>
+                            )}
+                        />
                     </CardContent>
                 </Card>
             </TabsContent>
@@ -121,7 +165,7 @@ export default function ({form}) {
                                 <FormItem>
                                     <FormLabel>Password</FormLabel>
                                     <FormControl>
-                                        <Input {...field} type="password" placeholder="******" />
+                                        <Input  {...field} type="password" placeholder="******" />
                                     </FormControl>
                                     <FormMessage />
                                 </FormItem>
@@ -135,12 +179,29 @@ export default function ({form}) {
                                 <FormItem>
                                     <FormLabel>Confirm Password</FormLabel>
                                     <FormControl>
-                                        <Input {...field} type="password" placeholder="******" />
+                                        <Input  {...field} type="password" placeholder="******" />
                                     </FormControl>
                                     <FormMessage />
                                 </FormItem>
                             )}
                         />
+
+                        <ReactPasswordChecklist
+                            style={{
+                                marginTop: "1rem"
+                            }}
+                            rules={["minLength", "specialChar", "number", "capital", "match"]}
+                            value={password}
+                            minLength={6}
+                            iconSize={10}
+                            valueAgain={confirmPassword}
+                            messages={{
+                                minLength: "Password must be at least 8 characters",
+                                specialChar: "Password must contain at least one special character",
+                                number: "Password must contain at least one digit",
+                                capital: "Password must contain at least one uppercase letter",
+                                match: "Passwords must match"
+                            }} />
                     </CardContent>
                 </Card>
             </TabsContent>
